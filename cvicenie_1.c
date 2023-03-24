@@ -3,6 +3,10 @@
 #define n_M 5
 #define n_K 6
 
+//      ******************************
+//      *<<<<Operacie s mnozinami>>>>*
+//      ******************************
+
 int prienik_pocet(int M[],int K[]){
     int n=0;
     for(int i=0; i<n_M; i++){
@@ -31,10 +35,11 @@ void zjednotenie(int M[],int K[],int Z[],int P[]){
     for(int i=0; i<n_M; i++){
         Z[i]=M[i];
     }
-    for(int j=0,z=5; j<n_K; j++,z++){
+    for(int j=0,z=5; j<n_K; j++){
         if(K[j]==P[0] || K[j]==P[1])
             continue;
         Z[z]=K[j];
+        z++;
         
     }
 }
@@ -49,12 +54,14 @@ int main(){
     prienik(M,K,P);
     zjednotenie(M,K,Z,P);
     
+    printf("Prienik:\t");
     for(int i=0; i<n_P; i++){
         printf("%d ",P[i]);
     }
-    printf("\n");
+    printf("\nZjednotenie:\t");
     for(int j=0; j<(n_M+n_K)-n_P; j++){
         printf("%d ",Z[j]);
     }
-
+    printf("\n");
+    
 }
