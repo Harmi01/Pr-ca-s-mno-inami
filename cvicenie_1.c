@@ -1,67 +1,53 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define n_M 5
-#define n_K 6
-
+#include<time.h>
 //      ******************************
 //      *<<<<Operacie s mnozinami>>>>*
 //      ******************************
 
-int prienik_pocet(int M[],int K[]){
-    int n=0;
-    for(int i=0; i<n_M; i++){
-        for(int j=0; j<n_K; j++){
-            if(M[i]==K[j])
-                n++;
-        }
-    }
-    return n;
+typedef struct{
+    unsigned int length;
+    int *p;
+}MNOZINA;
+
+void emptyset(MNOZINA* pset){
+    pset->length-=pset->length;
 }
 
-void prienik(int M[],int K[],int P[]){
-    int tmp=0;
-    for(int i=0; i<n_M; i++){
-        for(int j=0; j<n_K; j++){
-            if(M[i]==K[j]){
-                P[tmp]=K[j];
-                tmp++;
-            }
-        }
-    }
-}
+void append(MNOZINA* pset){
+    pset->length+=1;
+    MNOZINA tmp;
+    tmp.length=pset->length;
+    tmp.p=(int*)malloc(pset->length *sizeof(int));
 
-void zjednotenie(int M[],int K[],int Z[],int P[]){
-    
-    for(int i=0; i<n_M; i++){
-        Z[i]=M[i];
+    for(unsigned int i=0; i<tmp.length; i++){
+        tmp.p[i]=pset->p[i];
     }
-    for(int j=0,z=5; j<n_K; j++){
-        if(K[j]==P[0] || K[j]==P[1])
-            continue;
-        Z[z]=K[j];
-        z++;
-        
-    }
+    pset->p[tmp.length-1]=rand()%100;
 }
-
 
 int main(){
-    int M[n_M]={3,6,7,10,18}, K[n_K]={2,8,10,11,15,18};
-    int n_P=prienik_pocet(M,K);
-    int P[n_P];
-    int Z[(n_M+n_K)-n_P];
-    
-    prienik(M,K,P);
-    zjednotenie(M,K,Z,P);
-    
-    printf("Prienik:\t");
-    for(int i=0; i<n_P; i++){
-        printf("%d ",P[i]);
+    MNOZINA set;
+    scanf("%d",&set.length);
+    set.p=(int*)malloc(set.length *sizeof (int));
+    srand((unsigned int)time(NULL));
+    for(unsigned int i=0; i<set.length; i++){
+        set.p[i]=rand()%100;
+        printf("%d ",set.p[i]);
     }
-    printf("\nZjednotenie:\t");
-    for(int j=0; j<(n_M+n_K)-n_P; j++){
-        printf("%d ",Z[j]);
-    }
+    
     printf("\n");
+    append(&set);
+    for(unsigned int i=0; i<set.length; i++){
+        printf("%d ",set.p[i]);
+    }
+
+    printf("\n");
+    emptyset(&set);
+    printf("{ }");
+    for(unsigned int i=0; i<set.length; i++){
+          printf("%d ",set.p[i]);
+    }
+    
     
 }
