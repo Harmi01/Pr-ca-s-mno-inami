@@ -23,7 +23,9 @@ void append(MNOZINA* pset){
     for(unsigned int i=0; i<tmp.length; i++){
         tmp.p[i]=pset->p[i];
     }
-    pset->p[tmp.length-1]=rand()%100;
+    free(pset->p);
+    tmp.p[tmp.length-1]=rand()%100;
+    pset->p=(&tmp)->p;
 }
 
 int main(){
