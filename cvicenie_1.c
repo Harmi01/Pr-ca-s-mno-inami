@@ -28,6 +28,24 @@ void append(MNOZINA* pset){
     pset->p=(&tmp)->p;
 }
 
+void sum(MNOZINA* pset){
+    MNOZINA temp;
+    MNOZINA set2;
+    temp.length=rand()%15;
+    set2.length=temp.length+pset->length;
+    set2.p=(int*)malloc(set2.length *sizeof(int));
+    for(unsigned int i=0; i<pset->length; i++){
+        set2.p[i]=pset->p[i];
+    }
+    for(unsigned int j=pset->length, i=0; j<set2.length; j++,i++){
+        temp.p[i]=rand()%100;
+        set2.p[j]=temp.p[i];
+    }
+    free(pset->p);
+    pset->length+=temp.length;
+    pset->p=(&set2)->p;
+}
+
 int main(){
     MNOZINA set;
     scanf("%d",&set.length);
@@ -38,18 +56,23 @@ int main(){
         printf("%d ",set.p[i]);
     }
     
+    //printf("\n");
+    //append(&set);
+    //for(unsigned int i=0; i<set.length; i++){
+    //    printf("%d ",set.p[i]);
+    //}
+
+    //printf("\n");
+    //emptyset(&set);
+    //printf("{ }");
+    //for(unsigned int i=0; i<set.length; i++){
+    //      printf("%d ",set.p[i]);
+    //}
+    
     printf("\n");
-    append(&set);
+    sum(&set);
     for(unsigned int i=0; i<set.length; i++){
         printf("%d ",set.p[i]);
     }
-
-    printf("\n");
-    emptyset(&set);
-    printf("{ }");
-    for(unsigned int i=0; i<set.length; i++){
-          printf("%d ",set.p[i]);
-    }
-    
     
 }
